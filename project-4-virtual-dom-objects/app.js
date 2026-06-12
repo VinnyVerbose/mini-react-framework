@@ -5,15 +5,16 @@ function ToDo(task){
     }
 }
 
-
-
 let tree = 
     {
         type: 'div',
         children: [
             {
                 type: 'h1', 
-                text: 'Todo App'
+                text: 'Todo App',
+                props: {
+                    id: 'appHeader'
+                }
             }, 
             {
                 type: 'div', 
@@ -21,32 +22,34 @@ let tree =
                 children: [
                     {
                         type: 'p',
-                        text: 'Learn React'
+                        text: 'Learn React',
+                        props: {
+                            class: 'paragraph'
+                        }
                     },
                     {
                         type: 'p',
-                        text: 'Build Framework'
+                        text: 'Build Framework',
+                        props: {
+                            class: 'nextParagraph'
+                        }
                     }
                 ]
             }
         ]
     }
 
-
-    
-/*
-Case 1: obj has text
-Set the element's text
-
-Case 2: obj has children
-Loop through the children
-Render each child
-Append each rendered child to the parent element
-*/
- document.body.appendChild(render(tree));
-
+document.body.appendChild(render(tree));
 function render(obj){
     let elem = document.createElement(obj.type);
+
+    if(obj.props){
+        for(const [key, value] of Object.entries(obj.props)){
+            elem.setAttribute(key, value);
+        }
+        
+    }
+
     if(obj.text){
         elem.innerText = obj.text;
     }
@@ -58,3 +61,5 @@ function render(obj){
     }
     return elem;
 }
+
+
